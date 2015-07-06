@@ -4,6 +4,6 @@ WebGL examples
 
 2 - A basic square example
 
-3 - A tesselation example
+3 - A tessellation example
 
 
