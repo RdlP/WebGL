@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>Tesselation and twist</title>
+
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+uniform float theta;
+varying vec4 vColor;
+
+void
+main()
+{
+	//float ntheta = theta * sqrt(vPosition.x*vPosition.x + vPosition.y*vPosition.y);
+	float ntheta = theta*length(vec2(vPosition.x,vPosition.y));
+	float s = sin( ntheta ); 
+    float c = cos( ntheta ); 
+    vColor = vec4(theta*vPosition.x, theta*vPosition.y, 0, 1);
+
+    gl_Position.x = -s * vPosition.y + c * vPosition.x; 
+    gl_Position.y =  s * vPosition.x + c * vPosition.y; 
+    gl_Position.z = 0.0; 
+    gl_Position.w = 1.0; 
+    //gl_Position = vPosition;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+varying vec4 vColor;
+
+void
+main()
+{
+    gl_FragColor = vColor;//vec4( gl_Position.x, gl_Position.y, 0.0, 1.0 );
+}
+</script>
+
+
+<script type="text/javascript" src="app.js"></script>
+</head>   
+
+<body>
+    <p>
+        <span>Number of subdivisions:</span><input type="text" id="txtSubdivisions" value="6"/>
+    </p>
+    <p>
+        <span>Theta:</span><input type="range" min="-10" max="10" value="1" step="0.005" id="slTheta" />
+    </p>
+<canvas id="gl-canvas" width="512" height="512">
+
+</canvas>
+</body>
+</html>

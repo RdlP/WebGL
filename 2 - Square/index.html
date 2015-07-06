@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Square</title>
+	<meta charset='utf-8'/>
+	<script type="text/javascript" src="app.js"></script>
+</head>
+<body onload='main()'>
+	<canvas id="web-gl-container" width="512" height="512"/>
+
+	<script id="vertex-shader" type="x-shader/x-vertex">
+		attribute vec4 vPosition;
+		varying vec4 vColor;
+
+		void main()
+		{
+			vColor = vPosition;
+		    gl_Position = vPosition;
+		}
+	</script>
+
+	<script id="fragment-shader" type="x-shader/x-fragment">
+		precision mediump float;
+		varying vec4 vColor;
+
+		void main()
+		{
+		    gl_FragColor = vColor;
+		}
+	</script>
+</body>
+</html>
